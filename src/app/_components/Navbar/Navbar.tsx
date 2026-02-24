@@ -10,7 +10,13 @@ export default function Navbar() {
 
   const { count, setCount } = useContext(CartContext);
   useEffect(() => {
+
+    function flag(){
     setCount(0);
+
+    }
+    flag();
+
   }, []);
 
   const { data: session, status } = useSession();

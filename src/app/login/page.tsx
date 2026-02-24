@@ -20,6 +20,8 @@ import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 export default function Login() {
   const router = useRouter();
+  console.log(router);
+  
 
   const form = useForm<LoginType>({
     defaultValues: {
