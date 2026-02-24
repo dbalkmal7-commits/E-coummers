@@ -1,4 +1,3 @@
-import { checkoutshema } from './checkout.shema';
 import z from "zod";
 
 export const checkoutshema=z.object({
