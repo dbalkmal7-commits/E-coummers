@@ -17,8 +17,8 @@ export async function getMyToken() {
 
   const token = await decode({
     token: decodeToken,
-    // Use the same secret that NextAuth uses
-    secret: process.env.NEXTAUTH_SECRET!,
+    // Use the same secret that Auth.js/NextAuth uses
+    secret: process.env.AUTH_SECRET!,
   });
 
   return token?.token;
