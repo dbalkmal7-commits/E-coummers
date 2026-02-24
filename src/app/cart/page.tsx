@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { removeCart } from '@/CartActions/removeCart.action';
 import { CartContext } from '@/context/CartContext';
 import Link from 'next/link';
+import { useSession } from "next-auth/react";
 import { productCartType } from '@/type/cart.type';
 import Image from 'next/image';
 
@@ -102,13 +103,15 @@ async function updateCartProduct(id:string, count:string , sign:string){
 }
 
 
-async function removeallCartProducts(){
-  const res=await removeCart();
-console.log(res);
-if(res.message=="success"){
-setproducts([]);
+async function removeallCartProducts() {
+  const res = await removeCart();
 
-}
+  if (res.message === "success") {
+    setproducts([]);
+    setTotalPrice(0);
+    setCount(0);
+    toast.success("Cart cleared");
+  }
 }
   useEffect(()=>{
     getUserCartProducts();

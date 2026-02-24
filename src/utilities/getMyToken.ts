@@ -2,16 +2,24 @@
 import { decode } from "next-auth/jwt";
 import { cookies } from "next/headers";
 
+export async function getMyToken() {
+  const allCookies = await cookies();
 
-export async function getMyToken(){
+  // In development (HTTP) NextAuth uses this cookie name.
+  const devToken = allCookies.get("next-auth.session-token")?.value;
 
-    const decodeToken=(await cookies()).get("next-auth.session-token")?.value ||
-    (await cookies()).get("__secure-next-auth.session-token")?.value
+  // In production over HTTPS (e.g. Vercel) NextAuth uses this cookie name.
+  const prodToken = allCookies.get("__Secure-next-auth.session-token")?.value;
 
+  const decodeToken = devToken || prodToken;
 
-        if(!decodeToken) return null;
+  if (!decodeToken) return null;
 
-        const token= await decode({token:decodeToken , secret:process.env.AUTH_SECRET!})
-        
-    return token?.token;
+  const token = await decode({
+    token: decodeToken,
+    // Use the same secret that NextAuth uses
+    secret: process.env.NEXTAUTH_SECRET!,
+  });
+
+  return token?.token;
 }
