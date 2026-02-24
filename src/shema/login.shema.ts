@@ -12,7 +12,7 @@
 // export type loginType = z.infer<typeof loginshema>;
 import { z } from "zod";
 
-export const loginSchema = z.object({
+export const LoginSchema = z.object({
   email: z
     .string()
     .nonempty("Email is required")
@@ -25,4 +25,4 @@ export const loginSchema = z.object({
     .max(20, "Password must be at most 20 characters long"),
 });
 
-export type LoginType = z.infer<typeof loginSchema>;
+export type LoginType = z.infer<typeof LoginSchema>;

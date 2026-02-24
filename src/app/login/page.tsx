@@ -8,7 +8,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { loginshema, loginType } from "@/shema/login.shema";
+import { LoginSchema, LoginType } from "@/shema/login.shema";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -21,15 +21,15 @@ import { signIn } from "next-auth/react";
 export default function Login() {
   const router = useRouter();
 
-  const form = useForm<loginType>({
+  const form = useForm<LoginType>({
     defaultValues: {
       email: "",
       password: "",
     },
-    resolver: zodResolver(loginshema),
+    resolver: zodResolver(LoginSchema),
   });
   const { handleSubmit } = form;
-  async function handleLogin(values: loginType) {
+  async function handleLogin(values: LoginType) {
     const res = await signIn("credentials", {
       email: values.email,
       password: values.password,
