@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
-
+import { Toaster } from "@/components/ui/sonner";
+import MySessionProvider from "@/MySessionProvider/MySessionProvider";
+import Navbar from "./_components/Navbar/Navbar";
+import { CartContextProvider } from "@/context/CartContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,7 +31,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+   <MySessionProvider>
+       <CartContextProvider>
+         <Navbar />
         {children}
+       
+             <Toaster    position="top-center"
+  richColors />
+       </CartContextProvider>
+   </MySessionProvider>
       </body>
     </html>
   );
